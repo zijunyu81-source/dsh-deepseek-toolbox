@@ -1,0 +1,44 @@
+{
+  "name": "dsh-deepseek-toolbox",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness (DSH) plugin exposing the official DeepSeek Tool APIs as model tools: OCR (¥1.5/1000 pages), web Search and Fetch. DSH 插件：官方 OCR / 联网搜索 / 网页抓取工具。",
+  "type": "module",
+  "main": "lib/index.js",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "lib",
+    "bin",
+    "README.md",
+    "LICENSE",
+    "cordis.patch.yml"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek",
+    "dsh",
+    "ocr",
+    "text-recognition",
+    "web-search",
+    "web-fetch",
+    "deepseek-tool-api",
+    "plugin"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zijunyu81-source/dsh-deepseek-toolbox.git"
+  },
+  "homepage": "https://github.com/zijunyu81-source/dsh-deepseek-toolbox#readme",
+  "bugs": {
+    "url": "https://github.com/zijunyu81-source/dsh-deepseek-toolbox/issues"
+  },
+  "author": "zijunyu81-source (https://github.com/zijunyu81-source)",
+  "license": "MIT"
+}

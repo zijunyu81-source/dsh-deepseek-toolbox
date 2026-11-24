@@ -1,0 +1,9 @@
+# dsh-deepseek-toolbox bundle patch.
+#
+# One insert at the profile root, so the host plane mounts the plugin and every
+# agent inherits its model-facing tools (`ocr`, `deepseek_search`,
+# `deepseek_fetch`). No config: the plugin falls back to the official DeepSeek
+# Tool API endpoint and per-call credentials.
+- insert:
+    - id: tool-deepseek-toolbox
+      name: dsh-deepseek-toolbox

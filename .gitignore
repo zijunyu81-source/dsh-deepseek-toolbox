@@ -1,0 +1,17 @@
+# dependencies and generated artifacts
+node_modules/
+.pnpm-store/
+
+# plugin runtime output (OCR Markdown files)
+.dsh/
+.tmp/
+
+# logs and OS files
+*.log
+*.tgz
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/
+.idea/
