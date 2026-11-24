@@ -6,7 +6,11 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A520-brightgreen.svg)](package.json)
 [![DSH](https://img.shields.io/badge/DSH-0.2.x-4B6EF5.svg)](https://github.com/deepseek-ai/deepseek-harness)
+[![CI](https://github.com/zijunyu81-source/dsh-deepseek-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zijunyu81-source/dsh-deepseek-toolbox/actions/workflows/ci.yml)
 [![GitHub Repo stars](https://img.shields.io/github/stars/zijunyu81-source/dsh-deepseek-toolbox?style=social)](https://github.com/zijunyu81-source/dsh-deepseek-toolbox)
+
+**社区目录 / Community catalog:** 已收录于 [1024 Store 社区目录](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/blob/main/catalog/plugins/zijunyu81-source--dsh-deepseek-toolbox.json)（仓库/发布包安装；npm 包发布后 1024 Store 会显示一键安装命令）。
+
 
 > **关键词 / Keywords:** DeepSeek Harness、DSH 插件、DSH plugin、DeepSeek OCR、文字识别、扫描件 OCR、PDF OCR、联网搜索、网页抓取、DeepSeek Tool API、deepseek-harness、dsh-plugin、OCR plugin、web search plugin。
 
