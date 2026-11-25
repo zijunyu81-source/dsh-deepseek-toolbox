@@ -1,18 +1,16 @@
 # dsh-deepseek-toolbox
 
-**DeepSeek Harness（DSH）插件**：把 **DeepSeek 官方 Tool API** 注册成三个面向模型的工具 —— `ocr`（文字识别）、`deepseek_search`（联网搜索）、`deepseek_fetch`（网页抓取）。  
-*DSH plugin that exposes the official DeepSeek Tool APIs as three model-facing tools: OCR, web Search and Fetch.*
+**DeepSeek Harness（DSH）插件**：把 **DeepSeek 官方 Tool API** 注册成三个面向模型的工具 —— `ocr`（文字识别）、`deepseek_search`（联网搜索）、`deepseek_fetch`（网页抓取）。
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-%E2%89%A520-brightgreen.svg)](package.json)
-[![DSH](https://img.shields.io/badge/DSH-0.2.x-4B6EF5.svg)](https://github.com/deepseek-ai/deepseek-harness)
-[![CI](https://github.com/zijunyu81-source/dsh-deepseek-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zijunyu81-source/dsh-deepseek-toolbox/actions/workflows/ci.yml)
-[![GitHub Repo stars](https://img.shields.io/github/stars/zijunyu81-source/dsh-deepseek-toolbox?style=social)](https://github.com/zijunyu81-source/dsh-deepseek-toolbox)
+[![许可证：MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node 版本](https://img.shields.io/badge/node-%E2%89%A520-brightgreen.svg)](package.json)
+[![DSH 版本](https://img.shields.io/badge/DSH-0.2.x-4B6EF5.svg)](https://github.com/deepseek-ai/deepseek-harness)
+[![持续集成](https://github.com/zijunyu81-source/dsh-deepseek-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/zijunyu81-source/dsh-deepseek-toolbox/actions/workflows/ci.yml)
+[![GitHub 星标](https://img.shields.io/github/stars/zijunyu81-source/dsh-deepseek-toolbox?style=social)](https://github.com/zijunyu81-source/dsh-deepseek-toolbox)
 
-**社区目录 / Community catalog:** 已收录于 [1024 Store 社区目录](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/blob/main/catalog/plugins/zijunyu81-source--dsh-deepseek-toolbox.json)（仓库/发布包安装；npm 包发布后 1024 Store 会显示一键安装命令）。
+**社区目录**：已收录于 [1024 Store 社区目录](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/blob/main/catalog/plugins/zijunyu81-source--dsh-deepseek-toolbox.json)（仓库/发布包安装；npm 包发布后 1024 Store 会显示一键安装命令）。
 
-
-> **关键词 / Keywords:** DeepSeek Harness、DSH 插件、DSH plugin、DeepSeek OCR、文字识别、扫描件 OCR、PDF OCR、联网搜索、网页抓取、DeepSeek Tool API、deepseek-harness、dsh-plugin、OCR plugin、web search plugin。
+> **关键词**：DeepSeek Harness、DSH 插件、DeepSeek OCR、文字识别、扫描件 OCR、PDF OCR、联网搜索、网页抓取、DeepSeek Tool API、deepseek-harness、dsh-plugin、OCR 插件、web search plugin。
 
 ---
 
@@ -29,8 +27,7 @@
 - [常见问题 / 排错](#常见问题--排错)
 - [开发与测试](#开发与测试)
 - [兼容性与更新](#兼容性与更新)
-- [English summary](#english-summary)
-- [License](#license)
+- [许可证](#许可证)
 
 ---
 
@@ -44,7 +41,7 @@ DeepSeek 在 `https://api.deepseek.com/v1/tools/*` 提供三个按次计费的�
 | `POST /v1/tools/search` | 按 query 搜索网页，返回结构化结果 | **¥5 / 1000 成功请求** |
 | `POST /v1/tools/fetch` | 抓取单个网页并返回 Markdown | **¥5 / 1000 成功请求** |
 
-但 **DSH 0.2.x 的 profile 插件不能直接 `import '@deepseek-ai/dsh-tools'`**（这些包在安装目录里，profile 解析不到，插件会「装上但不生效」且没有明显报错）。本插件用**零 @deepseek-ai 依赖**的方式直接注册 hand-written 工具定义，绕开这个问题，并用每次调用解析凭证、错误映射、重试、输出落盘等方式做成可直接日常使用的工具。
+但 **DSH 0.2.x 的 profile 插件不能直接 `import '@deepseek-ai/dsh-tools'`**（这些包在安装目录里，profile 解析不到，插件会「装上但不生效」且没有明显报错）。本插件用**零 @deepseek-ai 依赖**的方式直接注册手写的工具定义，绕开这个问题，并用每次调用解析凭证、错误映射、重试、输出落盘等方式做成可直接日常使用的工具。
 
 给 DSH Agent 用起来就是：
 
@@ -66,13 +63,13 @@ DeepSeek 在 `https://api.deepseek.com/v1/tools/*` 提供三个按次计费的�
 
 典型成本：1 页图片 OCR **≈ ¥0.0015**；一次搜索/抓取 **≈ ¥0.005**。工具结果与渲染文本都会显示本次预估费用。
 
-**本插件与内置免费工具的关系**：DSH 自带 `web_search` / `web_fetch`（默认走 DeepSeek 服务端搜索 + 本地 HTTP 抓取，**不计次费**）。请**先用免费的**；只有免费工具失败、结果为空、页面反爬/需 JS 渲染，或用户明确要求 DeepSeek Search/Fetch 时，才用本插件的两个付费工具兜底。`ocr` 则是官方 API 按页计费，适合扫描件、长文档、截图、表格这类「值得一次性识别落盘」的内容。
+**与内置免费工具的关系**：DSH 自带 `web_search` / `web_fetch`（默认走 DeepSeek 服务端搜索 + 本地 HTTP 抓取，**不计次费**）。请**先用免费的**；只有免费工具失败、结果为空、页面反爬/需 JS 渲染，或用户明确要求 DeepSeek Search/Fetch 时，才用本插件的两个付费工具兜底。`ocr` 则是官方 API 按页计费，适合扫描件、长文档、截图、表格这类「值得一次性识别落盘」的内容。
 
 ---
 
 ## 快速安装
 
-### 方式 A：从 GitHub 安装（推荐；装 tag 版本）
+### 方式一：从 GitHub 安装（推荐；装 tag 版本）
 
 ```powershell
 # 用 DSH 自带 CLI（Windows 桌面版在 <安装目录>\resources\runtime\cli\bin\dsh.cmd）
@@ -84,7 +81,7 @@ dsh plugin --profile web add "git+https://github.com/zijunyu81-source/dsh-deepse
 - 装完 DSH 会热加载（HMR）；若没有出现工具，重启一次 DSH；
 - 验证：直接对 Agent 说「用 ocr 识别一下这个 PDF」，或看 DSH「插件」页里的 `dsh-deepseek-toolbox` 是否为 active。
 
-### 方式 B：从 Release tarball 安装（离线/固定文件）
+### 方式二：从 Release 压缩包安装（离线/固定文件）
 
 从 [Releases](https://github.com/zijunyu81-source/dsh-deepseek-toolbox/releases) 下载 `dsh-deepseek-toolbox-0.1.0.tgz`，然后：
 
@@ -92,7 +89,7 @@ dsh plugin --profile web add "git+https://github.com/zijunyu81-source/dsh-deepse
 dsh plugin --profile web add "C:\path\to\dsh-deepseek-toolbox-0.1.0.tgz"
 ```
 
-### 方式 C：本地 clone + link（开发/调试）
+### 方式三：本地克隆 + link（开发/调试）
 
 ```powershell
 git clone https://github.com/zijunyu81-source/dsh-deepseek-toolbox.git
@@ -137,19 +134,19 @@ dsh plugin --profile web remove dsh-deepseek-toolbox
 不需要把 Key 写进配置文件。插件在**每次调用时**按以下顺序解析：
 
 1. 当前会话使用 DeepSeek 账号模型时，用账号登录态（`x-dsh-auth-token`）；
-2. DSH 凭证服务里的 `DEEPSEEK_API_KEY`（在 DSH「Models / 模型」设置页保存）；
+2. DSH 凭证服务里的 `DEEPSEEK_API_KEY`（在 DSH「模型」设置页保存）；
 3. DSH 启动环境变量 `DEEPSEEK_API_KEY`；
 4. 托管文件 `$DSH_HOME/.credentials.yaml` 中 `refs.DEEPSEEK_API_KEY`。
 
-都没有时，工具会返回可操作的提示（去 DSH 设置保存 Key 或登录 DeepSeek），不会泄漏任何密钥。CLI 独立使用时同样按 `环境变量 → 托管文件` 顺序解析，只打印“用了哪种凭证”。
+都没有时，工具会返回可操作的提示（去 DSH 设置保存 Key 或登录 DeepSeek），不会泄漏任何密钥。CLI 独立使用时同样按「环境变量 → 托管文件」顺序解析，只打印用了哪种凭证。
 
-可选 config（一般不需要）：在 profile `cordis.patch.yml` 中按行 id 覆盖：
+可选配置（一般不需要）：在 profile `cordis.patch.yml` 中按行 id 覆盖：
 
 ```yaml
 - id: tool-deepseek-toolbox
   name: dsh-deepseek-toolbox
   config:
-    baseURL: https://api.deepseek.com/v1/tools   # 默认
+    baseURL: https://api.deepseek.com/v1/tools   # 默认值
     apiKeyEnv: DEEPSEEK_API_KEY                  # 凭证引用名
     ocrOutputDir: .dsh/ocr                       # 相对会话工作目录
     previewMaxChars: 12000                       # 内联预览上限（1000–60000）
@@ -179,9 +176,9 @@ deepseek_fetch(url="https://api-docs.deepseek.com/zh-cn/guides/ocr/")
 ### 独立 CLI（可脱离 DSH 使用）
 
 ```powershell
-node bin/deepseek-tools.mjs ocr <file> [--purpose=text_recognition|rich_layout_recognition] [--preview=1-2|all] [--out=path]
-node bin/deepseek-tools.mjs search <query> [--count=N] [--content]
-node bin/deepseek-tools.mjs fetch <url>
+node bin/deepseek-tools.mjs ocr <文件> [--purpose=text_recognition|rich_layout_recognition] [--preview=1-2|all] [--out=路径]
+node bin/deepseek-tools.mjs search <查询词> [--count=N] [--content]
+node bin/deepseek-tools.mjs fetch <网址>
 node bin/deepseek-tools.mjs --help
 ```
 
@@ -212,7 +209,7 @@ node bin/deepseek-tools.mjs --help
 | 现象 | 处理 |
 |---|---|
 | 装完看不到 `ocr` / `deepseek_search` / `deepseek_fetch` | 确认 profile `package.json` 的 `dsh.profile.bundles` 含 `dsh-deepseek-toolbox`；重启一次 DSH；确认 DSH 是 0.2.x |
-| `No DeepSeek Tool API credential is available` | 在 DSH「模型 / Models」页保存 `DEEPSEEK_API_KEY`，或登录 DeepSeek 账号后重试 |
+| `No DeepSeek Tool API credential is available` | 在 DSH「模型」页保存 `DEEPSEEK_API_KEY`，或登录 DeepSeek 账号后重试 |
 | 402 | 账户余额不足，充值后重试 |
 | 413 / 400 | 文件超过 100 MiB / 1000 页，或格式不支持；先转成 PDF/PNG 再试 |
 | 429 | 并发/频率限制（OCR 每账号最多 15 个同时识别），稍后重试 |
@@ -227,7 +224,7 @@ node bin/deepseek-tools.mjs --help
 node test/smoke.mjs                 # 离线：包结构、无 @deepseek-ai 导入、语法、核心函数、schema
 node test/host-shape.test.mjs       # 离线：直接 import lib/index.js + 假 fetch 全链路执行
 node test/smoke.mjs --live          # 真实 API：search + fetch（约 ¥0.01）
-node test/smoke.mjs --live --image=<path>   # 真实 OCR（按页计费，约 ¥0.0015/页）
+node test/smoke.mjs --live --image=<路径>   # 真实 OCR（按页计费，约 ¥0.0015/页）
 ```
 
 CI（GitHub Actions）在 Windows + Node 20/22/24 上跑离线检查，不需要 API Key。
@@ -257,25 +254,7 @@ test/                # 离线测试 + 可选真实 API 冒烟测试
 
 ---
 
-## English summary
-
-A local [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) bundle plugin that registers three model-facing tools backed by the official paid DeepSeek Tool APIs:
-
-- `ocr` — recognize text from PDF/Word/PowerPoint/images via `POST https://api.deepseek.com/v1/tools/ocr` (CNY 1.5 / 1000 successful pages); writes a page-marked Markdown file and returns an inline preview; detects extensionless files by magic bytes.
-- `deepseek_search` — `POST /v1/tools/search` (CNY 5 / 1000 successful requests), a paid fallback for DSH's free built-in `web_search`.
-- `deepseek_fetch` — `POST /v1/tools/fetch` (CNY 5 / 1000 successful requests), a paid fallback for DSH's free built-in `web_fetch`.
-
-Design notes: **zero `@deepseek-ai/*` imports** (a profile-installed DSH 0.2.x plugin cannot resolve them and would silently fail to load); hand-written registry-ready tool definitions; per-call credential resolution (account token → DSH credentials → env → managed file); no secrets logged; page-numbered Markdown output under `<cwd>/.dsh/ocr/`.
-
-```bash
-dsh plugin --profile web add "git+https://github.com/zijunyu81-source/dsh-deepseek-toolbox.git#v0.1.0"
-```
-
-Requires DSH 0.2.x and Node ≥ 20. MIT licensed. Tested against DSH 0.2.1-rc.2 on Windows 11.
-
----
-
-## License
+## 许可证
 
 [MIT](LICENSE) © 2026 zijunyu81-source
 

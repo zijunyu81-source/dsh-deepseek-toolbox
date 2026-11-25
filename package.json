@@ -1,7 +1,7 @@
 {
   "name": "dsh-deepseek-toolbox",
   "version": "0.1.0",
-  "description": "DeepSeek Harness (DSH) plugin exposing the official DeepSeek Tool APIs as model tools: OCR (¥1.5/1000 pages), web Search and Fetch. DSH 插件：官方 OCR / 联网搜索 / 网页抓取工具。",
+  "description": "DSH 插件：把 DeepSeek 官方 OCR / 联网搜索 / 网页抓取 Tool API 注册成三个模型工具（¥1.5/1000 页、¥5/1000 次请求），零 @deepseek-ai 依赖。",
   "type": "module",
   "main": "lib/index.js",
   "dsh": {
